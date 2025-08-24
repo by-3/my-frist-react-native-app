@@ -14,7 +14,15 @@ export default function App() {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <Text style={styles.title}>sing in</Text>
-      <TextInput placeholder='Email' style={styles.input}/>
+      <TextInput 
+        placeholder='Email' 
+        style={styles.input} 
+        autoFocus 
+        autoCapitalize='none'
+        keyboardType='email-address'
+        autoComplete='email'
+        autoCorrect={false}
+      />
       <TextInput placeholder='password' style={styles.input} secureTextEntry/>
       <Pressable
         onPress={() => {console.log('press');}}
