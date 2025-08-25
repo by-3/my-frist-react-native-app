@@ -7,6 +7,8 @@ import {
   Platform,
 } from 'react-native';
 import CustomInput from './src/components/CustomInput';
+import React from 'react';
+import CustomButton from './src/components/CustomButton';
 
 export default function App() {
   return (
@@ -24,11 +26,7 @@ export default function App() {
 
       <CustomInput placeholder='password' secureTextEntry/>
 
-      <Pressable
-        onPress={() => {console.log('press');}}
-        style={styles.button}>
-        <Text style={styles.textbutton}>Sing in</Text>
-      </Pressable>
+      <CustomButton onPress={() => {console.log('press');}} text='sign in' />
 
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
@@ -45,17 +43,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 600,
-  },
-  button: {
-    backgroundColor: '#4353FD',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center'
-  },
-  textbutton: {
-    color: 'white',
-    fontSize: 16,
     fontWeight: 600,
   },
 });
