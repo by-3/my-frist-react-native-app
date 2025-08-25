@@ -2,31 +2,51 @@ import { StatusBar } from 'expo-status-bar';
 import { 
   StyleSheet, 
   Text,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
+  View,
 } from 'react-native';
 import CustomInput from './src/components/CustomInput';
-import React from 'react';
 import CustomButton from './src/components/CustomButton';
+import { useForm } from 'react-hook-form';
 
 export default function App() {
+  const onSignIn = (data: any)=>{
+    console.log('press',data);
+  }
+
+  const { control, handleSubmit}  = useForm({
+    defaultValues: {
+      email: 'aaaaaa@gmail.com',
+      password: 'aaa1aaa'
+    }
+  });
+
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <Text style={styles.title}>sing in</Text>
 
-      <CustomInput 
-        placeholder='Email' 
-        autoFocus 
-        autoCapitalize='none'
-        keyboardType='email-address'
-        autoComplete='email'
-        autoCorrect={false}
-      />
+      <View style={styles.form}>
+        <CustomInput 
+          placeholder='Email'
+          name='email'
+          control={control}
+          autoFocus 
+          autoCapitalize='none'
+          keyboardType='email-address'
+          autoComplete='email'
+          autoCorrect={false}
+        />
+        
+        <CustomInput 
+          name='password'
+          control={control}
+          placeholder='password' 
+          secureTextEntry
+        />
 
-      <CustomInput placeholder='password' secureTextEntry/>
-
-      <CustomButton onPress={() => {console.log('press');}} text='sign in' />
+        <CustomButton onPress={handleSubmit(onSignIn)} text='sign in' />
+      </View>
 
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
@@ -45,4 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 600,
   },
+  form: {
+    gap: 20,
+  }
 });

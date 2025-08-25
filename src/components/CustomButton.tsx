@@ -14,7 +14,7 @@ export default function CustomButton( {text, ...props}: CustomButtonProps) {
         <Pressable
                 {...props}
                 style={styles.button}>
-                <Text style={styles.textbutton}>text</Text>
+                <Text style={styles.textbutton}>{text}</Text>
         </Pressable>
     )
 }
