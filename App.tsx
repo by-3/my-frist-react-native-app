@@ -24,15 +24,11 @@ const signInSchema = z.object({
 type SingInFilds = z.infer<typeof signInSchema>;
 
 export default function App() {
-  const { 
-    control, 
-    handleSubmit, 
-    formState:{ errors }
-  } = useForm({
+  const { control, handleSubmit, 
+  } = useForm<SingInFilds>({
     resolver: zodResolver(signInSchema),
   });
 
-  console.log(errors);
 
   const onSignIn = (data: SingInFilds)=>{
     console.log('press',data);
@@ -43,7 +39,7 @@ export default function App() {
       <Text style={styles.title}>sing in</Text>
 
       <View style={styles.form}>
-        <CustomInput 
+        <CustomInput
           placeholder='Email'
           name='email'
           control={control}
@@ -54,7 +50,7 @@ export default function App() {
           autoCorrect={false}
         />
         
-        <CustomInput 
+        <CustomInput
           name='password'
           control={control}
           placeholder='password' 

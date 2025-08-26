@@ -5,35 +5,39 @@ import {
   Text,
   View
 } from 'react-native';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
-type CustomInputProps = {
-  control: any;
-  name: string;
+type CustomInputProps<T extends FieldValues> = {
+  control: Control<T>;
+  name: Path<T>;
 } & TextInputProps
 
-export default function CustomInput({control, name, ...props}: CustomInputProps) {
-    return (
-      <Controller
-        control={control}
-        name={name}
-        render={({
-          field: {value, onChange, onBlur},
-          fieldState: {error},
-          }) => (
-            <View style={styles.container}>
-              <TextInput
-                {...props}
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                style={[styles.input, props.style]}
-              />
-              <Text style={styles.error} >{error?.message}</Text>
-            </View>
-        )}
-      />
-    )
+export default function CustomInput<T extends FieldValues>({
+  control, 
+  name, 
+  ...props
+}: CustomInputProps<T>) {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({
+        field: {value, onChange, onBlur},
+        fieldState: {error},
+        }) => (
+          <View style={styles.container}>
+            <TextInput
+              {...props}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              style={[styles.input, props.style]}
+            />
+            <Text style={styles.error} >{error?.message}</Text>
+          </View>
+      )}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
