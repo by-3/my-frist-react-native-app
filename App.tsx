@@ -9,18 +9,34 @@ import {
 import CustomInput from './src/components/CustomInput';
 import CustomButton from './src/components/CustomButton';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const signInSchema = z.object({
+  email: z
+    .string({message: 'Email is reqired'})
+    .email('invalid email'),
+  password: z
+    .string({message: 'Password is reqired'})
+    .min(8, 'Password should be at less 8 characters long'),
+});
+
+type SingInFilds = z.infer<typeof signInSchema>;
 
 export default function App() {
-  const onSignIn = (data: any)=>{
-    console.log('press',data);
-  }
-
-  const { control, handleSubmit}  = useForm({
-    defaultValues: {
-      email: 'aaaaaa@gmail.com',
-      password: 'aaa1aaa'
-    }
+  const { 
+    control, 
+    handleSubmit, 
+    formState:{ errors }
+  } = useForm({
+    resolver: zodResolver(signInSchema),
   });
+
+  console.log(errors);
+
+  const onSignIn = (data: SingInFilds)=>{
+    console.log('press',data);
+  };
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
@@ -51,7 +67,7 @@ export default function App() {
       <StatusBar style="auto" />
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

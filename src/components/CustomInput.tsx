@@ -17,7 +17,6 @@ export default function CustomInput({control, name, ...props}: CustomInputProps)
       <Controller
         control={control}
         name={name}
-        rules={{required: "This Field Is Required"}}
         render={({
           field: {value, onChange, onBlur},
           fieldState: {error},
